@@ -1,0 +1,14 @@
+{
+    "1": {
+        "name": "Cookie",
+        "price": 1.50
+    },
+    "2": {
+        "name": "Sandwich",
+        "price": 4.00
+    },
+    "3": {
+        "name": "Water",
+        "price": 1.00
+    }
+}
