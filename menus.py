@@ -9,11 +9,12 @@ class MainMenu(tk.Frame):
         super().__init__(parent)
         self.parent = parent
         self.cart = Cart()
+        self.cart_menu_instance = None  # Store the CartMenu instance
         self.create_widgets()
         self.pack()
 
     def create_widgets(self):
-        self.shop_button = tk.Button(self, text="Shop", command=self.cart_menu)
+        self.shop_button = tk.Button(self, text="Shop", command=self.show_cart_menu)
         self.shop_button.pack()
         self.exit_button = tk.Button(self, text="Exit", command=self.parent.quit)
         self.exit_button.pack()
@@ -21,9 +22,11 @@ class MainMenu(tk.Frame):
         self.cart_label = tk.Label(self, text="Total: $0.00")
         self.cart_label.pack()
 
-    def cart_menu(self):
-        cart_window = CartMenu(self, self.cart, self.update_cart)  # Pass the update_cart method
-        cart_window.pack()
+    def show_cart_menu(self):
+        if self.cart_menu_instance:  # Check if instance exists
+            self.cart_menu_instance.destroy()  # Destroy the existing instance
+        self.cart_menu_instance = CartMenu(self, self.cart, self.update_cart)  # Pass the update_cart method
+        self.cart_menu_instance.pack()
 
     def update_cart(self):
         self.cart_label.config(text=f"Total: ${self.cart.calculate_total():.2f}")
